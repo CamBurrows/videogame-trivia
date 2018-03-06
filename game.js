@@ -13,7 +13,6 @@ var counter;
 function logger(){
     console.log("scorecounter:" + scorecounter);
     console.log("questioncounter:" + questioncounter);
-    console.log("questioncounter:" + questioncounter);
     console.log("-----------------");
 }
 
@@ -194,7 +193,7 @@ $(document).ready(function(){
             scorecounter++;
             $(".buttons").empty();
             $(".buttons").append($("<img src="+ questions[qnumberarray[questioncounter]].correctimageurl + ">"));
-            $("#questionLine").text("That's Right! It's "+ questions[qnumberarray[questioncounter]].correct);
+            $("#questionLine").text("That is right! It is "+ questions[qnumberarray[questioncounter]].correct + "!");
             questioncounter++;
             logger();
         };
@@ -202,7 +201,7 @@ $(document).ready(function(){
         if ($(this).attr("data-name")==="false"){
             $(".buttons").empty();
             $(".buttons").append("<img src="+ questions[qnumberarray[questioncounter]].correctimageurl + ">");
-            $("#questionLine").text("That's Wrong! The correct answer is "+ questions[qnumberarray[questioncounter]].correct);
+            $("#questionLine").text("That is wrong! The correct answer is "+ questions[qnumberarray[questioncounter]].correct + "!");
             
             questioncounter++;
             logger();
@@ -214,19 +213,34 @@ $(document).ready(function(){
         
         //game end condition...not working properly. not able to clear timeout x
         if (questioncounter === 10){
-            clearInterval(counter);
-            clearTimeout(x);
-            clearTimeout(z);
+            clearInterval(counter); //when score hits 10 stop our counter interval immediately
+            clearTimeout(z); //when score hits 10, stop our counter reset immediately
             $("#timer").empty();
-            $("#questionLine").text("Game Over! You Scored " + scorecounter + " Out of 10!");
-            var e = $("<button>Start Over!</button>");
-            e.attr('class', "btn2");
-            $(".buttons").append(e);
+            
+            //a delay for our game over function
+            function endgamedelay() {
+                var y = setTimeout(gameover, 5000);
+            };
+            
+            //a function which executes gameover protocol
+            function gameover() {
+                clearTimeout(x);//timeout for our our new question delay. but we do want it to execute first, might not need this
+                $("#timer").empty();
+                $("#questionLine").text("Game Over! You Scored " + scorecounter + " Out of 10!");
+                var e = $("<button>Start Over!</button>");
+                e.attr('class', "btn2");
+                $(".buttons").append(e);
+            }
+
+            endgamedelay();
+            
         };
 
         //click handler which assigns new game functionality to button made in previous step.
     });
 
-
+    $(document).on("click",".btn2", function(){
+        location.reload();
+    });
 
 });

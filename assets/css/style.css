@@ -3,7 +3,7 @@
 }
 
 body {
-    background-image: url("https://images.alphacoders.com/236/236891.png");
+    background-image: url("https://images.alphacoders.com/236/236893.png");
 }
 
 .questionBox,
@@ -12,19 +12,25 @@ body {
 }
 
 #questionLine{
-    font-size: 30px;
+    font-size: 34px;
+    font-family: 'Dhurjati', sans-serif;
+    line-height: 34px;
 }
 
 h1 {
     color: red;
-    padding: 10px 0px;
+    padding: 2px 0px;
+    font-family: 'Dhurjati', sans-serif;
+    font-size: 60px;
+    line-height: 36px;
 }
 
 .container {
     max-width: 60%;
     height: 100%;
-    background-color: white;
+    background-color: rgba(28, 246, 253, 0.89);
     margin: 0 auto;
+    border: 5px dashed red;
 }
 
 img {
@@ -35,8 +41,9 @@ img {
     text-align: center;
 }
 
+.btn2,
 .btn {
-    background-color: transparent;
+    background-color: white;
     border-radius: 20px;
     display: block;
     margin: 10px auto;
@@ -44,10 +51,24 @@ img {
     padding: 8px;
 }
 
+.btn2:hover,
+.btn:hover{
+    background-color:darkblue;
+    color: white;
+}
+
+.btn:focus,
+.btn2:focus {
+    outline: 0;
+}
+
 .timerBox {
     text-align: center;
 }
 
 #timer {
-    font-size: 20px;
+    font-size: 36px;
+    border-radius: 20px;
+    color:red;
+    font-family: 'Dhurjati', sans-serif;
 }
