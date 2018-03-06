@@ -5,13 +5,31 @@ var questioncounter = 0;
 //array which will be used to select current questions
 var qnumberarray = ["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10"]
 
+var z;
+var x;
+var counter;
 
-
+//log function
 function logger(){
     console.log("scorecounter:" + scorecounter);
     console.log("questioncounter:" + questioncounter);
     console.log("questioncounter:" + questioncounter);
     console.log("-----------------");
+}
+
+function endgame(){
+    if (questioncounter === 10){
+        clearInterval(counter);
+        clearTimeout(x);
+        clearTimeout(z);
+        $("#timer").empty();
+        $("#questionLine").text("Game Over! You Scored " + scorecounter + " Out of 10!");
+        
+        var e = $("<button>Start Over!</button>");
+        e.attr('class', "btn2");
+        $(".buttons").append(e);
+
+    }
 }
 
 //object which contains all quiz info and subinfo
@@ -153,35 +171,37 @@ function newquestion(input){
 $(document).ready(function(){
     
     newquestion("q1");
-
+    //new questions delay function
     function delayNewQ() {
         var x = setTimeout("newquestion(qnumberarray[questioncounter])", 4000);
     };
-
+    //timer reset function
     function counterreset(){
         var z = setTimeout(count = 34, 4000);
     };
-
+    
+    //initital timer count
     var count = 30;
-
+    
+    //timer interval
     var counter = setInterval(timer, 1000);
 
+    //timer function, and specifications when timer hits 0
     function timer(){
         count--;
-        if (count <= 0){
-            clearInterval(counter);
+        if (count === 0){
             $(".buttons").empty();
             $(".buttons").append("<img src="+ questions[qnumberarray[questioncounter]].correctimageurl + ">");
             $("#questionLine").text("Time's Up! The correct answer is "+ questions[qnumberarray[questioncounter]].correct);
             questioncounter++;
-            delayNewQ();
             counterreset();
-
-        return;
+            delayNewQ();
+            
         };
         $("#timer").text(count);
     };
     
+    //on click event listener for dynamic buttons
     $(document).on("click", ".btn", function(){
         
         if ($(this).attr("data-name")==="true"){
@@ -205,6 +225,18 @@ $(document).ready(function(){
 
         delayNewQ();
         counterreset();
+        endgame();
+        if (questioncounter === 10){
+            clearInterval(counter);
+            clearTimeout(x);
+            clearTimeout(z);
+            $("#timer").empty();
+            $("#questionLine").text("Game Over! You Scored " + scorecounter + " Out of 10!");
+            
+            var e = $("<button>Start Over!</button>");
+            e.attr('class', "btn2");
+            $(".buttons").append(e);
+        };
     });
 
 
