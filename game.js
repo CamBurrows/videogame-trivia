@@ -17,20 +17,6 @@ function logger(){
     console.log("-----------------");
 }
 
-function endgame(){
-    if (questioncounter === 10){
-        clearInterval(counter);
-        clearTimeout(x);
-        clearTimeout(z);
-        $("#timer").empty();
-        $("#questionLine").text("Game Over! You Scored " + scorecounter + " Out of 10!");
-        
-        var e = $("<button>Start Over!</button>");
-        e.attr('class', "btn2");
-        $(".buttons").append(e);
-
-    }
-}
 
 //object which contains all quiz info and subinfo
 var questions = {
@@ -173,18 +159,18 @@ $(document).ready(function(){
     newquestion("q1");
     //new questions delay function
     function delayNewQ() {
-        var x = setTimeout("newquestion(qnumberarray[questioncounter])", 4000);
+        x = setTimeout("newquestion(qnumberarray[questioncounter])", 4000);
     };
     //timer reset function
     function counterreset(){
-        var z = setTimeout(count = 34, 4000);
+        z = setTimeout(count = 34, 4000);
     };
     
     //initital timer count
     var count = 30;
     
     //timer interval
-    var counter = setInterval(timer, 1000);
+    counter = setInterval(timer, 1000);
 
     //timer function, and specifications when timer hits 0
     function timer(){
@@ -225,18 +211,20 @@ $(document).ready(function(){
 
         delayNewQ();
         counterreset();
-        endgame();
+        
+        //game end condition...not working properly. not able to clear timeout x
         if (questioncounter === 10){
             clearInterval(counter);
             clearTimeout(x);
             clearTimeout(z);
             $("#timer").empty();
             $("#questionLine").text("Game Over! You Scored " + scorecounter + " Out of 10!");
-            
             var e = $("<button>Start Over!</button>");
             e.attr('class', "btn2");
             $(".buttons").append(e);
         };
+
+        //click handler which assigns new game functionality to button made in previous step.
     });
 
 
