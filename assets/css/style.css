@@ -72,3 +72,12 @@ img {
     color:red;
     font-family: 'Dhurjati', sans-serif;
 }
+
+@media screen and (max-width:780px){
+    .container {
+        max-width: 90%;
+    }
+    img {
+        width: 100%;
+    }
+}
